@@ -35,3 +35,7 @@ Milestone:
 
 <img width="614" height="457" alt="Image" src="https://github.com/user-attachments/assets/4f019a69-eb3f-4739-84d4-6666db60fc5b" />
 
+**alongside the actual time to develop, 20 minutes were taken to debug the code + fix trap function after adding separate portions
+the process of going back and testing for previous parts allowed us to recognize and address these issues
+
+
