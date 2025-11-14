@@ -38,4 +38,4 @@ Milestone:
 **alongside the actual time to develop, 20 minutes were taken to debug the code + fix trap function after adding separate portions
 the process of going back and testing for previous parts allowed us to recognize and address these issues
 
-
+we originally wanted to add animations, but were not able to complete this feature. 
