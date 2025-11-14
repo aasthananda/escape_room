@@ -41,9 +41,11 @@ the process of going back and testing for previous parts allowed us to recognize
 we originally wanted to add animations, but were not able to complete this feature. 
 
 
-**Does your program function as expected? 
+**Does your program function as expected?**
 Yes, our program functions as expected, allowing the user to follow a set of choices in order to succesfully escape the temple, or alternatively be doomed to a horrid fate. 
-**Does your program meet all the requirements? 
+
+**Does your program meet all the requirements?**
 Our program meets all the requirements, including all the required player actions -- running scores, the ability to quit the game, player movement, traps, replay, and prize picking functionalities. Based on the rubric, we included the movement capabilities, the quitting, the pickup, and the score increment. 
-**How did your time estimates compare to the actual amount of time it took you to complete milestones?
+
+**How did your time estimates compare to the actual amount of time it took you to complete milestones?**
 Our time estimates generally lagged behind what was needed to complete each milestone -- but the split amongst four people helped adjust for this. 
