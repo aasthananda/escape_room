@@ -1,4 +1,4 @@
-# Escape_Room
+# Escape_Room: Aastha, Yukthika, Varsha, Shreya
 
 Overview:
 Navigate your explorer through a jungle temple to reach the far-right exit. Collect treasures, avoid traps, and maneuver around rocks to maximize your score.
