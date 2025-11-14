@@ -1,94 +1,144 @@
+/*
+* Problem 1: Escape Room
+*
+* V1.0
+* 10/10/2019
+* Copyright(c) 2019 PLTW to present. All rights reserved
+*/
 import java.util.Scanner;
 
+
+/**
+* Create an escape room game where the player must navigate
+* to the other side of the screen in the fewest steps, while
+* avoiding obstacles and collecting prizes.
+*/
 public class EscapeRoom
 {
-    public static void main(String[] args) 
-    {      
-        System.out.println("Welcome to the Jungle Temple Escape Room!");
-        System.out.println("Navigate to the far right of the temple, avoid rocks,");
-        System.out.println("springs traps, and collect all treasures along the way.\n");
+ public static void main(String[] args)
+ {     
+   // welcome message
+   System.out.println("Welcome to EscapeRoom!");
+   System.out.println("Get to the other side of the room, avoiding walls and invisible traps,");
+   System.out.println("pick up all the prizes.\n");
+  
+   GameGUI game = new GameGUI();
+   game.createBoard();
 
-        GameGUI game = new GameGUI();
-        game.createBoard();
 
-        int m = 60; 
-        int score = 0;
+   // size of move
+   int m = 60;
+   // individual player moves
+   int px = 0;
+   int py = 0;
+  
+   int score = 0;
 
-        Scanner in = new Scanner(System.in);
-        String[] validCommands = { "right", "left", "up", "down", "r", "l", "u", "d",
-                                   "jump", "jr", "jumpleft", "jl", "jumpup", "ju", "jumpdown", "jd",
-                                   "pickup", "p", "quit", "q", "replay", "help", "?"};
 
-        boolean play = true;
+   Scanner in = new Scanner(System.in);
+   String[] validCommands = { "right", "left", "up", "down", "r", "l", "u", "d",
+   "jump", "jr", "jumpleft", "jl", "jumpup", "ju", "jumpdown", "jd",
+   "pickup", "p", "quit", "q", "replay", "help", "?"};
+    // set up game
+   boolean play = true;
+   while (play)
+   {
+       System.out.print("\nEnter command > ");
+       String cmd = UserInput.getValidInput(validCommands);
 
-        while (play)
-        {
-            System.out.print("Enter command: ");
-            String cmd = UserInput.getValidInput(validCommands);
 
-            switch(cmd)
-            {
-                case "right": case "r":
-                    score += game.movePlayer(m, 0);
-                    break;
-                case "left": case "l":
-                    score += game.movePlayer(-m, 0);
-                    break;
-                case "up": case "u":
-                    score += game.movePlayer(0, -m);
-                    break;
-                case "down": case "d":
-                    score += game.movePlayer(0, m);
-                    break;
-                case "jump": case "jr":
-                    score += game.movePlayer(m * 2, 0);
-                    break;
-                case "jumpleft": case "jl":
-                    score += game.movePlayer(-m * 2, 0);
-                    break;
-                case "jumpup": case "ju":
-                    score += game.movePlayer(0, -m * 2);
-                    break;
-                case "jumpdown": case "jd":
-                    score += game.movePlayer(0, m * 2);
-                    break;
-                case "pickup": case "p":
-                    score += game.pickupPrize();
-                    break;
-                case "help": case "?":
-                    System.out.println("Commands:");
-                    System.out.println("right / r - move right");
-                    System.out.println("left / l - move left");
-                    System.out.println("up / u - move up");
-                    System.out.println("down / d - move down");
-                    System.out.println("jump / jr - jump 2 spaces right");
-                    System.out.println("jumpleft / jl - jump 2 spaces left");
-                    System.out.println("jumpup / ju - jump 2 spaces up");
-                    System.out.println("jumpdown / jd - jump 2 spaces down");
-                    System.out.println("pickup / p - pick up treasure");
-                    System.out.println("replay - restart the board");
-                    System.out.println("quit / q - end the game");
-                    break;
-                case "replay":
-                    score += game.replay();
-                    break;
-                case "quit": case "q":
-                    play = false;
-                    break;
-            }
+       px = 0;
+       py = 0;
 
-            if (game.isTrap(m, 0) || game.isTrap(-m, 0) || game.isTrap(0, -m) || game.isTrap(0, m))
-            {
-                score += game.springTrap(m, 0);
-                score += game.springTrap(-m, 0);
-                score += game.springTrap(0, -m);
-                score += game.springTrap(0, m);
-            }
-        }
 
-        score += game.endGame();
+       if (cmd.equals("right") || cmd.equals("r")) {
+           px = m;
+       }
+       else if (cmd.equals("left") || cmd.equals("l")) {
+           px = -m;
+       }
+       else if (cmd.equals("up") || cmd.equals("u")) {
+           py = -m;
+       }
+       else if (cmd.equals("down") || cmd.equals("d")) {
+           py = m;
+       }
 
-        System.out.println("Final Score: " + score);
-        System.out.println("Total Steps: " + game.getSteps());
-    }
+      //jump
+       else if (cmd.equals("jump") || cmd.equals("jr")) {
+           px = m * 2;
+       }
+       else if (cmd.equals("jumpleft") || cmd.equals("jl")) {
+           px = -m * 2;
+       }
+       else if (cmd.equals("jumpup") || cmd.equals("ju")) {
+           py = -m * 2;
+       }
+       else if (cmd.equals("jumpdown") || cmd.equals("jd")) {
+           py = m * 2;
+       }
+
+
+       // replay
+       else if (cmd.equals("replay")) {
+           score += game.replay();
+           continue;
+       }
+
+
+       // help
+       else if (cmd.equals("help") || cmd.equals("?")) {
+           System.out.println("""
+Commands:
+right / r     - move right
+left / l      - move left
+up / u        - move up
+down / d      - move down
+jump/jr       - jump right
+jumpleft/jl   - jump left
+jumpup/ju     - jump up
+jumpdown/jd   - jump down
+pickup/p      - pick up prize
+replay        - restart the board
+quit/q        - end the game
+help/?        - show commands
+""");
+           continue;
+       }
+
+
+       // --- QUIT GAME ---
+       else if (cmd.equals("quit") || cmd.equals("q")) {
+           play = false;
+           continue;
+       }
+
+
+       // --- MOVE THE PLAYER ---
+       int moveScore = game.movePlayer(px, py);
+
+
+       // Only proceed if the move is valid (not off-grid or blocked by wall)
+       if (moveScore >= 0) {
+           // --- AUTOMATIC TRAP CHECK ---
+           if (game.isTrap(0, 0)) { // current location
+               score += game.springTrap(0, 0);
+           }
+
+
+           // --- AUTOMATIC PRIZE PICKUP ---
+           score += game.pickupPrize();
+       } else {
+           // If move was invalid, deduct penalty
+           score += moveScore;
+       }
+   }
+
+
+   score += game.endGame();
+
+
+   System.out.println("Final Score = " + score);
+   System.out.println("Total Steps = " + game.getSteps());
+ }
 }
