@@ -1,10 +1,3 @@
-/*
-* Problem 1: Escape Room
-*
-* V1.0
-* 10/10/2019
-* Copyright(c) 2019 PLTW to present. All rights reserved
-*/
 import java.util.Scanner;
 
 
