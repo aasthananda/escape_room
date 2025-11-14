@@ -28,7 +28,7 @@ public class EscapeRoom
   
    int score = 0;
 
-
+//searches for  command keywords -- defines whats valid
    Scanner in = new Scanner(System.in);
    String[] validCommands = { "right", "left", "up", "down", "r", "l", "u", "d",
    "jump", "jr", "jumpleft", "jl", "jumpup", "ju", "jumpdown", "jd",
@@ -39,7 +39,7 @@ public class EscapeRoom
    {
        System.out.print("\nEnter command > ");
        String cmd = UserInput.getValidInput(validCommands);
-
+//gets commands 
 
        px = 0;
        py = 0;
