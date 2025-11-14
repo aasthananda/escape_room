@@ -9,7 +9,7 @@ import javax.swing.JFrame;
 import java.io.File;
 import javax.imageio.ImageIO;
 import java.util.Random;
-
+//initialization stuff
 public class GameGUI extends JComponent
 {
     static final long serialVersionUID = 141L;
@@ -72,7 +72,7 @@ public class GameGUI extends JComponent
         catch (Exception e) { System.err.println("Could not open file dukeLarge.png"); }
 
         playerLoc = new Point(x, y);
-
+//sets up file 
         frame = new JFrame();
         frame.setTitle("EscapeRoom");
         frame.setSize(WIDTH, HEIGHT);
@@ -80,16 +80,16 @@ public class GameGUI extends JComponent
         frame.add(this);
         frame.setVisible(true);
         frame.setResizable(false);
-
+//sets the numerical limits that are called later on to prevent a map filled with one thing or the other
         totalWalls = 20;
         totalPrizes = 3;
         totalTraps = 5;
-
+//generates duke placements 
         Random rand = new Random();
         dukeX = rand.nextInt(GRID_W) * SPACE_SIZE + 15;
         dukeY = rand.nextInt(GRID_H) * SPACE_SIZE + 15;
     }
-
+//generates board
     public void createBoard()
     {
         traps = new Rectangle[totalTraps];
@@ -99,7 +99,7 @@ public class GameGUI extends JComponent
         walls = new Rectangle[totalWalls];
         createWalls();
     }
-
+//made to move the player, and warn the players if they do not make smart moves... .. 
     public int movePlayer(int incrx, int incry)
     {
         int newX = x + incrx;
@@ -129,13 +129,13 @@ public class GameGUI extends JComponent
                 return -hitWallVal;
             }
         }
-
+//increments score
         x += incrx;
         y += incry;
         repaint();
         return 0;
     }
-
+//a boolean to check if the given rectangle is a trap, provides result to the user
     public boolean isTrap(int newx, int newy)
     {
         double px = playerLoc.getX() + newx;
@@ -157,7 +157,7 @@ public class GameGUI extends JComponent
     {
         double px = playerLoc.getX() + newx;
         double py = playerLoc.getY() + newy;
-
+//if the player encounters a trap 
         for (Rectangle r: traps)
         {
             if (r.contains(px, py) && r.getWidth() > 0)
@@ -167,7 +167,7 @@ public class GameGUI extends JComponent
                 return trapVal;
             }
         }
-
+//if the player uses the command without the trap 
         System.out.println("THERE IS NO TRAP HERE TO SPRING");
         return -trapVal;
     }
@@ -176,7 +176,7 @@ public class GameGUI extends JComponent
     {
         double px = playerLoc.getX();
         double py = playerLoc.getY();
-
+//if the player succesfully reaches a prize
         for (Rectangle p: prizes)
         {
             if (p.getWidth() > 0 && p.contains(px, py))
@@ -187,11 +187,11 @@ public class GameGUI extends JComponent
                 return prizeVal;
             }
         }
-
+//if the player fails to reach a prize 
         System.out.println("OOPS, NO PRIZE HERE");
         return -prizeVal;
     }
-
+//sets quantity limits on each portion, and sets steps back to the start
     public int getSteps() { return playerSteps; }
 
     public void setPrizes(int p) { totalPrizes = p; }
@@ -199,7 +199,7 @@ public class GameGUI extends JComponent
     public void setTraps(int t) { totalTraps = t; }
 
     public void setWalls(int w) { totalWalls = w; }
-
+//provides an option to replay the game 
     public int replay()
     {
         int win = playerAtEnd();
@@ -213,7 +213,7 @@ public class GameGUI extends JComponent
         repaint();
         return win;
     }
-
+//provides a pathway to call for the player quitting or winning 
     public int endGame()
     {
         int win = playerAtEnd();
@@ -221,7 +221,7 @@ public class GameGUI extends JComponent
         frame.dispose();
         return win;
     }
-
+//adds in background components 
     public void paintComponent(Graphics g)
     {
         super.paintComponent(g);
@@ -234,7 +234,7 @@ public class GameGUI extends JComponent
             g2.setPaint(Color.WHITE);
             g2.fill(t);
         }
-
+//draws out the prize
         for (Rectangle p: prizes)
         {
             if (p.getWidth() > 0)
@@ -244,7 +244,7 @@ public class GameGUI extends JComponent
                 g.drawImage(prizeImage, px, py, null);
             }
         }
-
+//draws out walls
         for (Rectangle r: walls)
         {
             if (rockImage != null)
@@ -257,7 +257,7 @@ public class GameGUI extends JComponent
                 g2.fill(r);
             }
         }
-
+//sets location and adds the Duke, how villanous 
         if (dukeImage != null)
         {
             g.drawImage(dukeImage, dukeX, dukeY, dukeWidth, dukeHeight, null);
@@ -266,7 +266,7 @@ public class GameGUI extends JComponent
         g.drawImage(player, x, y, 40, 40, null);
         playerLoc.setLocation(x, y);
     }
-
+//draws random prizes on the map, but limits their size
     private void createPrizes()
     {
         int s = SPACE_SIZE;
@@ -279,7 +279,7 @@ public class GameGUI extends JComponent
             prizes[i] = r;
         }
     }
-
+//draws random traps in the map, but limits their size
     private void createTraps()
     {
         int s = SPACE_SIZE;
@@ -292,7 +292,7 @@ public class GameGUI extends JComponent
             traps[i] = r;
         }
     }
-
+//draws random walls in the map 
     private void createWalls()
     {
         int s = SPACE_SIZE;
@@ -313,7 +313,7 @@ public class GameGUI extends JComponent
             walls[i] = r;
         }
     }
-
+//provides result depending on player quitting or maintaining their progress to the end 
     private int playerAtEnd()
     {
         double px = playerLoc.getX();
