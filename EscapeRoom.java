@@ -21,6 +21,7 @@ public class EscapeRoom
    System.out.println("Welcome to EscapeRoom!");
    System.out.println("Get to the other side of the room, avoiding walls and invisible traps,");
    System.out.println("pick up all the prizes.\n");
+   System.out.println("Please type in one of these commands: right, left, up, down, r, l, u, d, jump, jr, jumpleft, jl, jumpup, ju, jumpdown, jd, pickup, p, quit, q, replay, help, ?");
   
    GameGUI game = new GameGUI();
    game.createBoard();
@@ -107,29 +108,24 @@ help/?        - show commands
        }
 
 
-       // --- QUIT GAME ---
        else if (cmd.equals("quit") || cmd.equals("q")) {
            play = false;
            continue;
        }
 
 
-       // --- MOVE THE PLAYER ---
        int moveScore = game.movePlayer(px, py);
 
 
-       // Only proceed if the move is valid (not off-grid or blocked by wall)
        if (moveScore >= 0) {
-           // --- AUTOMATIC TRAP CHECK ---
-           if (game.isTrap(0, 0)) { // current location
+
+           if (game.isTrap(0, 0)) { 
                score += game.springTrap(0, 0);
            }
 
-
-           // --- AUTOMATIC PRIZE PICKUP ---
            score += game.pickupPrize();
        } else {
-           // If move was invalid, deduct penalty
+
            score += moveScore;
        }
    }
